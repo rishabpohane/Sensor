@@ -8,6 +8,12 @@ import time
 import Adafruit_ADS1x15
 
 
+# Helper to write data to file
+def writeToFile(file = "distance_data.txt" , text = "None"):
+    f = open(file,'wb')
+    f.write(text) # python will convert \n to os.linesep
+    f.close() # you can omit in most cases as the destructor will call it
+
 # Create an ADS1115 ADC (16-bit) instance.
 adc = Adafruit_ADS1x15.ADS1115()
 
@@ -49,5 +55,7 @@ while True:
         # ADC (ADS1015 = 12-bit, ADS1115 = 16-bit).
     # Print the ADC values.
     print('| {0:>6}|'.format(*values))
+    # Write it to a file
+    writeToFile(values[0])
     # Pause for half a second.
     time.sleep(0.5)
